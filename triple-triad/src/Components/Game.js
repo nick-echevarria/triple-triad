@@ -1,30 +1,17 @@
 import React, { Component } from 'react';
-import HandContainer from '../Containers/HandContainer.js'
 import FieldContainer from '../Containers/FieldContainer.js'
-
-const allCards = "http://localhost:3000/cards"
 
 class Game extends Component {
     state = { 
-        allCards: [],
-        playerHand: []
-    }
-    componentDidMount() { 
-        this.fetchAllCards();
-        this.dealHand()
+        currentUser: ""
     }
 
-    fetchAllCards() { 
-        fetch(allCards)
-            .then(res => res.json())
-            .then(allCards => this.setState({ allCards }))
-    }
-
-    dealHand = () => { 
-        let i = 0;
-        while (i < 5) {
-            this.setState({ playerHand: this.state.playerHand.concat(this.state.allCards[Math.floor(Math.random() * this.state.allCards.length)]) })
-            i++
+    pickStartingPlayer = () => { 
+        //add function for choosing animation 
+        if (Math.floor(Math.random() * 2) === 0 ) { 
+            this.setState({ currentUser: "playerOne"})
+        } else { 
+            this.setState({ currentUser: "playerTwo"})
         }
     }
 
@@ -32,10 +19,14 @@ class Game extends Component {
         return (
             <div>
                 <FieldContainer />
-                <HandContainer playerHand={this.state.playerHand} />
             </div>
         );
     }
 }
 
 export default Game;
+
+//determine who goes first
+//have each player take turns 
+//determine winner
+
