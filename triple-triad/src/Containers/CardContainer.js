@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
+import './Card.css'
 
 export class CardContainer extends Component {
-    state = { 
-        selected: false
-    }
-
+    
     getCardImage = (cardNumber) => { 
         if (cardNumber.toString().length === 2) { 
             return "img/cards/0" + cardNumber + ".png"
         } else { 
             return "img/cards/" + cardNumber + ".png"
         }
-    }
+    }    
 
     handleCardClick = (selectedCard) => { 
-        this.setState({ selected: !this.state.selected });
         this.props.selectCard(selectedCard);
     }
+
 
     render() {
         let {
@@ -30,17 +28,17 @@ export class CardContainer extends Component {
         } = this.props
 
         return (
-            <div classname="card" onClick={() => this.handleCardClick(this.props)}>
-                <h2>{name}</h2>
-                <h2>{top_value}</h2>
-                <h2>{bottom_value}</h2>
-                <h2>{left_value}</h2>
-                <h2>{right_value}</h2>
-                <h2>{affinity}</h2>
-                <img alt={name} src={this.getCardImage(card_number)} />
+            <div className="card" onClick={() => this.handleCardClick(this.props)}>
+                {/* <h2 className="topValue">{top_value}</h2>
+                <h2 className="bottomValue">{bottom_value}</h2>
+                <h2 className="leftValue">{left_value}</h2>
+                <h2 className="rightValue">{right_value}</h2>
+                <h2 className="affinity">{affinity}</h2> */}
+                <img className="cardImage" alt={name} src={this.getCardImage(card_number)} />
             </div>
         )
     };
 
 }
 
+export default CardContainer

@@ -1,0 +1,12 @@
+.gridContainer { 
+    display: grid;
+    grid-template-columns: 25% 50% 25%; 
+    background-image: url('./board-mat.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.field { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr;
+}

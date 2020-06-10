@@ -3,22 +3,28 @@ import FieldContainer from '../Containers/FieldContainer.js'
 
 class Game extends Component {
     state = { 
-        currentUser: ""
+        currentPlayer: ""
+    }
+
+    // define turn logic here 
+
+    componentDidMount() { 
+        this.pickStartingPlayer();
     }
 
     pickStartingPlayer = () => { 
         //add function for choosing animation 
         if (Math.floor(Math.random() * 2) === 0 ) { 
-            this.setState({ currentUser: "playerOne"})
+            this.setState({ currentPlayer: "playerOne"})
         } else { 
-            this.setState({ currentUser: "playerTwo"})
+            this.setState({ currentPlayer: "playerTwo"})
         }
     }
 
     render() {
         return (
             <div>
-                <FieldContainer />
+                <FieldContainer currentPlayer={this.state.currentPlayer}/>
             </div>
         );
     }

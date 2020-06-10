@@ -3,7 +3,7 @@ import Game from './Game'
 
 class Home extends Component {
 
-    startGame = () => { 
+    handleStartGameClick = () => { 
         //use router to switch to game screen
     }
 
@@ -11,7 +11,7 @@ class Home extends Component {
         return (
             <div>
                 <div>
-                    <button className="playButton" onClick={this.startGame}>New Game</button>
+                    <button className="playButton" onClick={this.handleStartGameClick}>New Game</button>
                     <Game />
                 </div>
             </div>

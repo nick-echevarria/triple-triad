@@ -1,0 +1,10 @@
+.card { 
+    display: grid; 
+    width: 169px; 
+    height: 169px; 
+    margin-bottom: -20px
+}
+
+.topValue { 
+    top: 0;
+}
