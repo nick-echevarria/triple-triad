@@ -1,10 +1,10 @@
 .card { 
     display: grid; 
-    width: 169px; 
-    height: 169px; 
-    margin-bottom: -20px
+    justify-content: space-around;
+    max-height: 18vh;
 }
 
-.topValue { 
-    top: 0;
+img.cardImage {
+    max-height: inherit;
+    max-width: inherit;
 }

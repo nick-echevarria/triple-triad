@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Card.css'
 
 export class CardContainer extends Component {
-    
+
     getCardImage = (cardNumber) => { 
         if (cardNumber.toString().length === 2) { 
             return "img/cards/0" + cardNumber + ".png"
@@ -14,7 +14,6 @@ export class CardContainer extends Component {
     handleCardClick = (selectedCard) => { 
         this.props.selectCard(selectedCard);
     }
-
 
     render() {
         let {
@@ -38,7 +37,6 @@ export class CardContainer extends Component {
             </div>
         )
     };
-
 }
 
 export default CardContainer
