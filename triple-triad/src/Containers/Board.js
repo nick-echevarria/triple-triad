@@ -151,7 +151,7 @@ const comparisonMap = {
 
 // use map to create an array of neighborcard objects with possession: 'new color' if they should be updated
 // use this to calculate your new board 
-// let neighborUpdate = comparisonMap[position].map(neighbor => {
+// compareCardValues = () => comparisonMap[position].map(neighbor => {
 //     if ( playerCard['new_card_val'] > neighbor['other_card_val']) {
 //         return { ...neighbor, possession}
 //     }
@@ -197,30 +197,39 @@ class Board extends Component {
         }
     }
 
-    playCard = () => { 
-        //takes selectedCard and pushes into selectedPosition
-        let newBoard = this.state.board.map(boardItem => {
-            if (boardItem.position === this.state.selectedPosition) {
-                console.log(boardItem)
-                this.checkPlay(boardItem.position, boardItem.card)               
-                return { ...boardItem, card: this.state.selectedCard }                
-            }
+    isValid(boardItem) { 
+        if (boardItem["card"] !== null) { 
+            alert("There's already a card there.")
             return boardItem
-        })
-        //use selected card to filter hand so that it returns a new array 
+        } else { 
+            this.updateHand()
+            return { ...boardItem, card: this.state.selectedCard } // add comparison function
+        }
+    }
+
+    updateHand() { 
         if (this.props.currentPlayer === PLAYER_ONE) { 
             let playerHand = this.state.playerHand.filter(card => card.id !== this.state.selectedCard.id)
             this.setState({ playerHand }, this.props.nextTurn())            
         } else { 
             let opponentHand = this.state.opponentHand.filter(card => card.id !== this.state.selectedCard.id)
             this.setState({ opponentHand }, this.props.nextTurn())
-
         }
+    }
+
+    playCard = () => { 
+        //takes selectedCard and pushes into selectedPosition
+        let newBoard = this.state.board.map(boardItem => {
+            if (boardItem["position"] === this.state.selectedPosition) {
+                return this.isValid(boardItem)                 
+            }
+            return boardItem
+        })
+        this.updateHand()
         this.setState({ board: newBoard, selectedCard: null, selectedPosition: null })
     }  
     
     checkPlay = (position, playedCard) => { 
-
         const [POS_ONE_CARD,
                 POS_TWO_CARD,
                 POS_THREE_CARD,
@@ -232,9 +241,7 @@ class Board extends Component {
                 POS_NINE_CARD] = this.state.board.map(boardObj => boardObj.card)
 
         if (position === 1) { 
-            if (POS_ONE_CARD) { 
-                return alert("There's already a card there!")
-            } else if (POS_TWO_CARD && POS_FOUR_CARD) { 
+            if (POS_TWO_CARD && POS_FOUR_CARD) { 
                 if (playedCard.right_value > POS_TWO_CARD.left_value && playedCard.bottom_value > POS_FOUR_CARD.top_value) {
                     POS_TWO_CARD["possession"] = "blue"
                     POS_FOUR_CARD["possession"] = "blue"
@@ -276,7 +283,7 @@ class Board extends Component {
         this.setState({ playerHand, opponentHand })
     }
 
-    render() {
+    render() {   
         return (
             <div>                
                 <div className="gridContainer">
@@ -284,7 +291,7 @@ class Board extends Component {
                         <PlayerHandContainer playerHand={this.state.playerHand} selectCard={this.selectCard} />
                     </div>
                     <div className="board">
-                        {this.state.board.map(position => <PositionContainer key={position.id} {...position} selectPosition={this.selectPosition}/>)}
+                        {this.state.board.map(boardObject => <PositionContainer key={boardObject["position"]} {...boardObject} selectPosition={this.selectPosition}/>)}
                     </div>
                     <div className="opponentHand">
                         <OpponentHandContainer opponentHand={this.state.opponentHand} selectCard={this.selectCard} />
@@ -297,7 +304,6 @@ class Board extends Component {
 
 export default Board;
 
-// 1. create isValid function
 // 2. make it so that cards in hand have respective color
 // 3. create comparisonMap
 // 4. have neighborUpdate work 

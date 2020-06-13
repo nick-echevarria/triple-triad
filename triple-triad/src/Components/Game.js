@@ -9,8 +9,6 @@ class Game extends Component {
         currentPlayer: ""
     }
 
-    // define turn logic here 
-
     componentDidMount() { 
         this.pickStartingPlayer();
     }
@@ -22,7 +20,6 @@ class Game extends Component {
         } else { 
             this.setState({ currentPlayer: PLAYER_TWO})
         }
-
     }
 
     nextTurn = () => { 
