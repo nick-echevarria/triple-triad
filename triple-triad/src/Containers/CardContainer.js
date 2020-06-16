@@ -23,9 +23,9 @@ export class CardContainer extends Component {
             left_value,
             right_value,
             affinity,
-            card_number
+            card_number, 
+            possession
         } = this.props
-
         return (
             <div className="card" onClick={() => this.handleCardClick(this.props)}>
                 {/* <h2 className="topValue">{top_value}</h2>
@@ -33,7 +33,7 @@ export class CardContainer extends Component {
                 <h2 className="leftValue">{left_value}</h2>
                 <h2 className="rightValue">{right_value}</h2>
                 <h2 className="affinity">{affinity}</h2> */}
-                <img className="cardImage" alt={name} src={this.getCardImage(card_number)} />
+                <img className={`cardImage ${possession}-card`} alt={name} src={this.getCardImage(card_number)}  />
             </div>
         )
     };

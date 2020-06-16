@@ -8,3 +8,11 @@ img.cardImage {
     max-height: inherit;
     max-width: inherit;
 }
+
+.red-card { 
+    background-color: red
+}
+
+.blue-card { 
+    background-color: blue
+}

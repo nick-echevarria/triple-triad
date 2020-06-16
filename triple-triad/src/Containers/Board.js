@@ -149,14 +149,6 @@ const comparisonMap = {
     ]
 }
 
-// use map to create an array of neighborcard objects with possession: 'new color' if they should be updated
-// use this to calculate your new board 
-// compareCardValues = () => comparisonMap[position].map(neighbor => {
-//     if ( playerCard['new_card_val'] > neighbor['other_card_val']) {
-//         return { ...neighbor, possession}
-//     }
-// })
-
 class Board extends Component {
     state = { 
         allCards: [],
@@ -166,24 +158,53 @@ class Board extends Component {
         selectedCard: null, 
         selectedPosition: null, 
         playerHand: [], 
-        opponentHand: []
+        opponentHand: [], 
+        playerScore: 5, 
+        opponentScore: 5
     }
 
     componentDidMount() { 
         this.fetchAllCards();
     }
 
-    // computerPlay = () => { 
-    //     //take first card from opponent hand 
-    //     //find first empty position in board 
-    //     //place that card
-    // }
-
     fetchAllCards() { 
         fetch(allCards)
             .then(res => res.json())
             .then(allCards => this.setState({ allCards }, () => this.dealHands()))
     }
+
+    dealHands = () => {  
+        let allCardsCopy = [...this.state.allCards]
+        let playerHand = []
+        let opponentHand = []
+        while (playerHand.length < 5) {
+            let newCard = allCardsCopy.splice([Math.floor(Math.random() * allCardsCopy.length)], 1)[0]
+            playerHand.push(newCard)             
+        }    
+        while (opponentHand.length < 5) {
+            let newCard = allCardsCopy.splice([Math.floor(Math.random() * allCardsCopy.length)], 1)[0]
+            opponentHand.push(newCard)
+        }    
+        playerHand.map(card => card.possession = "blue")
+        opponentHand.map(card => card.possession = "red")
+        this.setState({ playerHand, opponentHand })
+    }
+
+    increasePlayerScore= () => { 
+        let playerScore = this.state.playerScore
+        let opponentScore = this.state.opponentScore
+        
+        playerScore++
+        opponentScore--
+
+        this.setState({ playerScore, opponentScore })
+    }
+
+    // computerPlay = () => { 
+    //     //take first card from opponent hand 
+    //     //find first empty position in board 
+    //     //place that card
+    // } 
     
     selectCard = (selectedCard) => { 
         this.setState({ selectedCard })
@@ -201,11 +222,64 @@ class Board extends Component {
         if (boardItem["card"] !== null) { 
             alert("There's already a card there.")
             return boardItem
-        } else { 
-            this.updateHand()
-            return { ...boardItem, card: this.state.selectedCard } // add comparison function
+        } else {
+            return { ...boardItem, card: this.state.selectedCard }
         }
     }
+
+    compareCardValues(newBoard) {
+        let board = newBoard
+        let playedCard = this.state.selectedCard
+        let selectedPosition = this.state.selectedPosition
+        
+
+        let flippedPositions = comparisonMap[selectedPosition].map(comparisonObj => {
+            let position = comparisonObj.position - 1
+            let boardPosition = board[position]
+            debugger
+                
+            if (boardPosition.card) {
+                if (playedCard[comparisonObj.playedCard_value].toString() > board[position].card[comparisonObj.otherCard_value].toString()) {
+                    let positionClone = { position: board[position]["position"] } // {position: 9}
+
+                    const card = board[position]["card"] // {position: 9, card: {all of the key/values}
+                    console.log(card.possession)
+                    let cardClone = card.possession === "blue" ? { ...card, possession: "red" } : { ...card, possession: "blue" } //  to change pos value
+                        
+                    positionClone.card = cardClone;
+
+                    this.increasePlayerScore()
+                    
+                    return positionClone
+                } else if (playedCard[comparisonObj.playedCard_value].toString() < board[position].card[comparisonObj.otherCard_value].toString()) { 
+                    return board[position]
+                } else if (playedCard[comparisonObj.playedCard_value].toString() === board[position].card[comparisonObj.otherCard_value].toString()) { 
+                    return board[position]
+            } 
+                } else { 
+                    return boardPosition
+                }
+            }
+        )
+        return flippedPositions // // [{positiopn: 2, card: {...}}, {position: 4, card: null}]
+    }
+
+    updateBoard = (newestBoard) => {
+        let flippedPositions = this.compareCardValues(newestBoard) 
+        console.log("Flipped", flippedPositions)
+
+        let newBoard = newestBoard.map(positionObj => { 
+            let matchedPosition = flippedPositions.find(flippedPosition => flippedPosition.position === positionObj.position)
+
+            if (matchedPosition) {
+                return matchedPosition                    
+                } else {                
+                return positionObj
+            }
+        })
+        console.log(newBoard)
+        return newBoard
+    }    
 
     updateHand() { 
         if (this.props.currentPlayer === PLAYER_ONE) { 
@@ -218,72 +292,25 @@ class Board extends Component {
     }
 
     playCard = () => { 
-        //takes selectedCard and pushes into selectedPosition
-        let newBoard = this.state.board.map(boardItem => {
+        let boardCopy = [...this.state.board]
+
+        let updatedBoard = boardCopy.map(boardItem => {
             if (boardItem["position"] === this.state.selectedPosition) {
-                return this.isValid(boardItem)                 
+                return this.isValid(boardItem)
+            } else {
+                return boardItem
             }
-            return boardItem
         })
+
+        let finalBoard = this.updateBoard(updatedBoard)
+        console.log("Final Board", finalBoard)
+
         this.updateHand()
-        this.setState({ board: newBoard, selectedCard: null, selectedPosition: null })
+
+        this.setState({ board: finalBoard, selectedCard: null, selectedPosition: null })
     }  
-    
-    checkPlay = (position, playedCard) => { 
-        const [POS_ONE_CARD,
-                POS_TWO_CARD,
-                POS_THREE_CARD,
-                POS_FOUR_CARD,
-                POS_FIVE_CARD,
-                POS_SIX_CARD,
-                POS_SEVEN_CARD,
-                POS_EIGHT_CARD,
-                POS_NINE_CARD] = this.state.board.map(boardObj => boardObj.card)
 
-        if (position === 1) { 
-            if (POS_TWO_CARD && POS_FOUR_CARD) { 
-                if (playedCard.right_value > POS_TWO_CARD.left_value && playedCard.bottom_value > POS_FOUR_CARD.top_value) {
-                    POS_TWO_CARD["possession"] = "blue"
-                    POS_FOUR_CARD["possession"] = "blue"
-                } else if (playedCard.right_value < POS_TWO_CARD.left_value && playedCard.bottom_value > POS_FOUR_CARD.top_value) { 
-                    POS_FOUR_CARD["possession"] = "blue"
-                } else if (playedCard.right_value > POS_TWO_CARD.left_value && playedCard.bottom_value < POS_FOUR_CARD.top_value) {
-                    POS_TWO_CARD["possession"] = "blue"
-                } 
-            } else if (POS_TWO_CARD && !POS_FOUR_CARD) { 
-                if (playedCard.right_value > POS_TWO_CARD.left_value) { 
-                    POS_TWO_CARD["possession"] = "blue"
-                } else { 
-                    return
-                }
-            } else if (!POS_TWO_CARD && POS_FOUR_CARD) { 
-                if (playedCard.bottom_value > POS_FOUR_CARD.top_value) { 
-                    POS_FOUR_CARD["possession"] = "blue"
-                } else { 
-                    return
-                }
-            } else if (!POS_TWO_CARD && !POS_FOUR_CARD) { 
-                return
-            } 
-        }
-    }
-
-    dealHands = () => {  
-        let allCardsCopy = [...this.state.allCards]
-        let playerHand = []
-        let opponentHand = []
-        while (playerHand.length < 5) {
-            let newCard = allCardsCopy.splice([Math.floor(Math.random() * allCardsCopy.length)], 1)[0]
-            playerHand.push(newCard)             
-        }    
-        while (opponentHand.length < 5) {
-            let newCard = allCardsCopy.splice([Math.floor(Math.random() * allCardsCopy.length)], 1)[0]
-            opponentHand.push(newCard)
-        }    
-        this.setState({ playerHand, opponentHand })
-    }
-
-    render() {   
+    render() {  
         return (
             <div>                
                 <div className="gridContainer">
@@ -303,8 +330,3 @@ class Board extends Component {
 }
 
 export default Board;
-
-// 2. make it so that cards in hand have respective color
-// 3. create comparisonMap
-// 4. have neighborUpdate work 
-
