@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Game from './Game'
 
 class Home extends Component {
 
@@ -10,9 +9,8 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <button className="playButton" onClick={this.handleStartGameClick}>New Game</button>
-                    <Game />
+                <div>                    
+                    <strong>This is the Home component!</strong>    
                 </div>
             </div>
         );

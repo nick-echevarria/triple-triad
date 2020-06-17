@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Card.css'
+import '../CSS/Card.css'
 
 export class CardContainer extends Component {
 

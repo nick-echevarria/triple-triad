@@ -1,0 +1,55 @@
+.card { 
+    display: grid; 
+    justify-content: space-around;
+    max-height: 18vh;
+}
+
+/* .rank { 
+    position: relative; 
+    float: left; 
+} */
+
+.card .top-value { 
+    position: relative;
+    left: 18px;
+    top: -140px;
+    display: block;
+    width: 20px;
+}
+
+.card .left-value { 
+    position: relative;
+    left: 9px;
+    bottom: 156px;
+    display: block;
+    width: 20px;
+}
+
+.card .right-value { 
+    position: relative;
+    left: 30px;
+    bottom: 175px;
+    display: block;
+    width: 20px;
+}
+
+.card .bottom-value { 
+    position: relative;
+    left: 21px;
+    bottom: 119px;
+    display: block;
+    width: 20px;
+}
+
+.card-image  {
+    max-height: inherit;
+    max-width: inherit;
+}
+
+.red-card { 
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 1, 1))
+}
+
+.blue-card { 
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(1, 9, 255))
+}

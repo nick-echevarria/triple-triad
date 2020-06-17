@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlayerHandContainer from './PlayerHandContainer';
 import OpponentHandContainer from './OpponentHandContainer';
 import PositionContainer from './PositionContainer'
-import './Board.css';
+import '../CSS/Board.css';
 
 const allCards = "http://localhost:3000/cards"
 const PLAYER_ONE = "playerOne"
