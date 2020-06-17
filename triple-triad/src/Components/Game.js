@@ -41,7 +41,3 @@ class Game extends Component {
 
 export default Game;
 
-//determine who goes first
-//have each player take turns 
-//determine winner
-
