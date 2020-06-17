@@ -236,7 +236,6 @@ class Board extends Component {
         let flippedPositions = comparisonMap[selectedPosition].map(comparisonObj => {
             let position = comparisonObj.position - 1
             let boardPosition = board[position]
-            debugger
                 
             if (boardPosition.card) {
                 if (playedCard[comparisonObj.playedCard_value].toString() > board[position].card[comparisonObj.otherCard_value].toString()) {
@@ -251,6 +250,8 @@ class Board extends Component {
                     this.increasePlayerScore()
                     
                     return positionClone
+                } else if (playedCard[comparisonObj.playedCard_value].toString() < board[position].card[comparisonObj.otherCard_value].toString() && playedCard.possession !== board[position].card.possession) {
+                    return board[position]
                 } else if (playedCard[comparisonObj.playedCard_value].toString() < board[position].card[comparisonObj.otherCard_value].toString()) { 
                     return board[position]
                 } else if (playedCard[comparisonObj.playedCard_value].toString() === board[position].card[comparisonObj.otherCard_value].toString()) { 
@@ -261,7 +262,7 @@ class Board extends Component {
                 }
             }
         )
-        return flippedPositions // // [{positiopn: 2, card: {...}}, {position: 4, card: null}]
+        return flippedPositions
     }
 
     updateBoard = (newestBoard) => {
