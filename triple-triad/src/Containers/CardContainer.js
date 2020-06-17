@@ -29,11 +29,10 @@ export class CardContainer extends Component {
         return (
             <div className="card" onClick={() => this.handleCardClick(this.props)}>
                 <img className={`card-image ${possession}-card`} alt={name} src={this.getCardImage(card_number)}  />
-                <img className="rank" alt="rank" src={`img/rank-${top_value}.png`} />
-                <img classrank="rank" alt="rank" src={`img/rank-${bottom_value}.png`}  />
-                <img classrank="rank" alt="rank" src={`img/rank-${left_value}.png`}  />
-                <img classrank="rank" alt="rank" src={`img/rank-${right_value}.png`}  />
-                
+                <img className="top-value" alt="rank" src={`img/rank-${top_value}.png`} />
+                <img className="bottom-value" alt="rank" src={`img/rank-${bottom_value}.png`}  />
+                <img className="left-value" alt="rank" src={`img/rank-${left_value}.png`}  />
+                <img className="right-value" alt="rank" src={`img/rank-${right_value}.png`}  />              
             </div>
         )
     };
