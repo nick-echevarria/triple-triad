@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PlayerHandContainer from '../Components/PlayerHandContainer';
-import OpponentHandContainer from '../Components/OpponentHandContainer';
-import PositionContainer from '../Components/PositionContainer'
-import './CSS/Board.css';
+import PlayerHandContainer from './PlayerHandContainer';
+import OpponentHandContainer from './OpponentHandContainer';
+import PositionContainer from './PositionContainer'
+import './Board.css';
 
 const allCards = "http://localhost:3000/cards"
 const PLAYER_ONE = "playerOne"
