@@ -7,10 +7,8 @@ import Game from './Game'
 const Root = () => {
     return (
         <div>
-            <strong>This is the Root</strong>
-            <button><Link to="/game">Play</Link></button>
             <Switch>
-                <Route component={Home} exact path='/'/>
+                <Route component={Home} exact path='/home'/>
                 <Route component={Game} path='/game' />
             </Switch>
         </div>

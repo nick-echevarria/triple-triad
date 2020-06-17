@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-
+import { Link } from 'react-router-dom'
 
 class Home extends Component {
 
@@ -12,7 +11,7 @@ class Home extends Component {
         return (
             <div>
                 <div>                    
-                    <strong>This is the Home component!</strong>    
+                    <button><Link to="/game">Play</Link></button>
                 </div>
             </div>
         );
