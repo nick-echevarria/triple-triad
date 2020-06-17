@@ -1,13 +1,18 @@
+body {
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+}
+
 .gridContainer { 
     background-image: url('./board-mat.jpg');
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    max-height: 100vh;
-    max-width: 100vw;
+    height: 99vh;
+    width: 100vw;
     background-size: cover;
     justify-content: space-between;
-    overflow-y: scroll;
 }
 
 .board { 
@@ -15,10 +20,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     position: relative;
-    flex-basis: 56%;
-    top: 3vh;
-    height: 86vh;
-    left: 56px;
+    flex-basis: 58%;
+    top: 7%;
+    height: 30%;
+    left: 6%;
 }
 
 .position-1, .position-2, .position-3, .position-4, .position-5, .position-6, .position-7, .position-8, .position-9 { 
@@ -28,12 +33,27 @@
 }
 
 .playerHand { 
-    flex-basis: 18%;
+    flex-basis: 14%;
 }
 
 .opponentHand { 
-    flex-basis: 18%;
+    flex-basis: 14%;
 }
+
+.playerScore { 
+    position: relative;
+    height: 10%;
+    top: 73%;
+    right: 13%;
+}
+
+.opponentScore { 
+    position: relative;
+    height: 10%;
+    top: 73%;
+    right: 11%;
+}
+
 
 
 

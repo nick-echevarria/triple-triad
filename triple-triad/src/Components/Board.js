@@ -125,8 +125,8 @@ const comparisonMap = {
         },
         {
             position: 7,
-            playedCard_value: 'right_value',
-            otherCard_value: 'left_value'
+            playedCard_value: 'left_value',
+            otherCard_value: 'right_value'
         }, 
         {
             position: 9,
@@ -160,10 +160,11 @@ class Board extends Component {
         opponentHand: [], 
         playerScore: 5, 
         opponentScore: 5
-    }
+    }    
 
     componentDidMount() { 
         this.fetchAllCards();
+        console.log(this.state.board)
     }
 
     fetchAllCards() { 
@@ -187,16 +188,6 @@ class Board extends Component {
         playerHand.map(card => card.possession = "blue")
         opponentHand.map(card => card.possession = "red")
         this.setState({ playerHand, opponentHand })
-    }
-
-    increasePlayerScore= () => { 
-        let playerScore = this.state.playerScore
-        let opponentScore = this.state.opponentScore
-        
-        playerScore++
-        opponentScore--
-
-        this.setState({ playerScore, opponentScore })
     }
 
     // computerPlay = () => { 
@@ -226,6 +217,26 @@ class Board extends Component {
         }
     }
 
+    calculateScore = (positionClone) => { 
+        if (positionClone.card.possession === "red") {
+            let playerScore = this.state.playerScore
+            let opponentScore = this.state.opponentScore
+            
+            playerScore--
+            opponentScore++
+    
+            this.setState({ playerScore, opponentScore })
+        } else {                             
+            let playerScore = this.state.playerScore
+            let opponentScore = this.state.opponentScore
+            
+            playerScore++
+            opponentScore--
+    
+            this.setState({ playerScore, opponentScore })
+        }
+    }  
+
     compareCardValues(newBoard) {
         let board = newBoard
         let playedCard = this.state.selectedCard
@@ -237,23 +248,29 @@ class Board extends Component {
             let boardPosition = board[position]
                 
             if (boardPosition.card) {
-                if (playedCard[comparisonObj.playedCard_value].toString() > board[position].card[comparisonObj.otherCard_value].toString()) {
+                if (playedCard[comparisonObj.playedCard_value] === "A" && board[position].card[comparisonObj.otherCard_value] <= 9 && playedCard.possession !== board[position].card.possession) {
                     let positionClone = { position: board[position]["position"] } // {position: 9}
-
                     const card = board[position]["card"] // {position: 9, card: {all of the key/values}
-                    console.log(card.possession)
                     let cardClone = card.possession === "blue" ? { ...card, possession: "red" } : { ...card, possession: "blue" } //  to change pos value
-                        
                     positionClone.card = cardClone;
 
-                    this.increasePlayerScore()
+                    this.calculateScore(positionClone)
+                    
+                    return positionClone                    
+                } else if (playedCard[comparisonObj.playedCard_value] > board[position].card[comparisonObj.otherCard_value] && playedCard.possession !== board[position].card.possession) {
+                    let positionClone = { position: board[position]["position"] } // {position: 9}
+                    const card = board[position]["card"] // {position: 9, card: {all of the key/values}
+                    let cardClone = card.possession === "blue" ? { ...card, possession: "red" } : { ...card, possession: "blue" } //  to change pos value
+                    positionClone.card = cardClone;
+
+                    this.calculateScore(positionClone)
                     
                     return positionClone
-                } else if (playedCard[comparisonObj.playedCard_value].toString() < board[position].card[comparisonObj.otherCard_value].toString() && playedCard.possession !== board[position].card.possession) {
+                } else if (playedCard[comparisonObj.playedCard_value] > board[position].card[comparisonObj.otherCard_value] && playedCard.possession === board[position].card.possession) {
                     return board[position]
-                } else if (playedCard[comparisonObj.playedCard_value].toString() < board[position].card[comparisonObj.otherCard_value].toString()) { 
+                } else if (playedCard[comparisonObj.playedCard_value] < board[position].card[comparisonObj.otherCard_value]) { 
                     return board[position]
-                } else if (playedCard[comparisonObj.playedCard_value].toString() === board[position].card[comparisonObj.otherCard_value].toString()) { 
+                } else if (playedCard[comparisonObj.playedCard_value] === board[position].card[comparisonObj.otherCard_value]) { 
                     return board[position]
             } 
                 } else { 
@@ -310,19 +327,25 @@ class Board extends Component {
         this.setState({ board: finalBoard, selectedCard: null, selectedPosition: null })
     }  
 
+    // endGame = () => { 
+    //     if (this.state.board)
+    // }
+
     render() {  
         return (
             <div>                
-                <div className="gridContainer">
+                <div className="gridContainer" style={{border: "2px solid black", margin: "auto"}}>
                     <div className="playerHand" >
                         <PlayerHandContainer playerHand={this.state.playerHand} selectCard={this.selectCard} />
                     </div>
+                    <img className="playerScore" src={`img/score-${this.state.playerScore}.png`} alt="player-score"/>
                     <div className="board">
                         {this.state.board.map(boardObject => <PositionContainer key={boardObject["position"]} {...boardObject} selectPosition={this.selectPosition}/>)}
                     </div>
                     <div className="opponentHand">
                         <OpponentHandContainer opponentHand={this.state.opponentHand} selectCard={this.selectCard} />
                     </div>
+                    <img className="opponentScore" src={`img/score-${this.state.opponentScore}.png`} alt="player-score"/>
                 </div>                
             </div>
         );

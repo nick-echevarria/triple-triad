@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
+import './Home.css';
+
 class Home extends Component {
 
-    handleStartGameClick = () => { 
-        //use router to switch to game screen
-    }
+    // handleStartGameClick = () => { 
+    // }
 
     render() {
         return (
-            <div>
-                <div>                    
-                    <button><Link to="/game">Play</Link></button>
-                </div>
+            <div className="grid-container">                
+                <button><Link to="/game">Play</Link></button>
+                <h3> Welcome! </h3>
+                <strong> Hello! </strong>
             </div>
         );
     }
