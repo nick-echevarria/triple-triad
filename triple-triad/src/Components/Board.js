@@ -164,7 +164,6 @@ class Board extends Component {
 
     componentDidMount() { 
         this.fetchAllCards();
-        console.log(this.state.board)
     }
 
     fetchAllCards() { 
@@ -188,13 +187,7 @@ class Board extends Component {
         playerHand.map(card => card.possession = "blue")
         opponentHand.map(card => card.possession = "red")
         this.setState({ playerHand, opponentHand })
-    }
-
-    // computerPlay = () => { 
-    //     //take first card from opponent hand 
-    //     //find first empty position in board 
-    //     //place that card
-    // } 
+    } 
     
     selectCard = (selectedCard) => { 
         this.setState({ selectedCard })
@@ -327,11 +320,14 @@ class Board extends Component {
         this.setState({ board: finalBoard, selectedCard: null, selectedPosition: null })
     }  
 
-    // endGame = () => { 
-    //     if (this.state.board)
-    // }
-
     render() {  
+        // if (this.props.turnCount === 10 && this.state.playerScore > this.state.opponentScore) {
+        //     alert("Player One wins!")            
+        // } else if (this.props.turnCount === 10 && this.state.playerScore < this.state.opponentScore) { 
+        //     alert("Player Two Wins!")
+        // } else if (this.props.turnCount === 10 && this.state.playerScore === this.state.opponentScore){ 
+        //     alert("It's A Draw!")
+        // }
         return (
             <div>                
                 <div className="gridContainer" style={{border: "2px solid black", margin: "auto"}}>

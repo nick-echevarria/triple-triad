@@ -1,11 +1,95 @@
 body { 
-    margin: 0; 
-    padding: 0;
+    background: url('triple-triad-home-page.png') no-repeat center center fixed;
+    background-size: cover;
+    margin-right: 0;
+    margin-left: 0;
 }
 
-.grid-container { 
-    background-color: rgb(97, 56, 9);
-    border: 2px solid yellow;
-    text-align: center;
+.main-container { 
     height: 100vh;
 }
+
+.first-row { 
+    height: 25vh;
+}
+
+.first-column { 
+    height: inherit;
+}
+
+.second-column { 
+    height: 25vh;
+}
+
+.third-column { 
+    height: inherit;
+}
+
+.second-row { 
+    height: 50vh;
+}
+
+.fourth-column { 
+    height: inherit;
+}
+
+.fifth-column { 
+    height: inherit;
+}
+
+.fifth-column .logo { 
+    height: inherit;
+    width: inherit;
+}
+
+.fifth-column .play-button { 
+    height: 5vh;
+    width: 25vh;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    transform: translateY(-360%);
+    background-image: url('ui-box.png');
+    background-size: cover;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.fifth-column .collection-button { 
+    height: 5vh;
+    width: 25vh;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    transform: translateY(-360%);
+    background-image: url('ui-box.png');
+    background-size: cover;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: white;
+    margin-top: 1vh;
+}
+
+.sixth-column { 
+    height: inherit;
+}
+
+.third-row { 
+    height: 25vh;
+}
+
+.seventh-column { 
+    height: inherit;
+}
+
+.eigth-column { 
+    height: inherit;
+}
+
+.ninth-column { 
+    height: inherit;
+}
+
