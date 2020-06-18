@@ -10,10 +10,8 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="grid-container">                
-                <button><Link to="/game">Play</Link></button>
-                <h3> Welcome! </h3>
-                <strong> Hello! </strong>
+            <div class="container-fluid main-container">
+                Hello!
             </div>
         );
     }

@@ -43,14 +43,14 @@ body {
 .playerScore { 
     position: relative;
     height: 10%;
-    top: 73%;
+    top: 87%;
     right: 13%;
 }
 
 .opponentScore { 
     position: relative;
     height: 10%;
-    top: 73%;
+    top: 87%;
     right: 11%;
 }
 

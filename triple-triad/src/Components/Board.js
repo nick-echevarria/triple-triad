@@ -327,10 +327,6 @@ class Board extends Component {
         this.setState({ board: finalBoard, selectedCard: null, selectedPosition: null })
     }  
 
-    // endGame = () => { 
-    //     if (this.state.board)
-    // }
-
     render() {  
         return (
             <div>                
