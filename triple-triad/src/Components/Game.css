@@ -1,66 +1,71 @@
-.board-container { 
-    border: 1px solid yellow;
-    height: inherit;
+body { 
+    background: url('./board-mat.jpg') no-repeat center center fixed;
+    background-size: cover;
     /* margin-right: 0;
     margin-left: 0; */
 }
 
-.first-board-row { 
+.main-container { 
+    border: 1px solid yellow;
+    height: 100vh;
+}
+
+.first-row { 
     border: 3px solid red;
     height: 7vh;
 }
 
-.first-board-column { 
+.first-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.second-board-column { 
+.second-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.third-board-column { 
+.third-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.second-board-row { 
+.second-row { 
     border: 3px solid red;
     height: 86vh;
 }
 
-.fourth-board-column { 
+.fourth-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.fifth-board-column { 
+.fifth-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.sixth-board-column { 
+.sixth-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.third-board-row { 
+.third-row { 
     border: 3px solid red;
     height: 7vh;
 }
 
-.seventh-board-column { 
+.seventh-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.eigth-board-column { 
+.eigth-column { 
     border: 3px solid blue;
     height: inherit;
 }
 
-.ninth-board-column { 
+.ninth-column { 
     border: 3px solid blue;
     height: inherit;
 }

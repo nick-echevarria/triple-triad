@@ -1,12 +1,12 @@
 body { 
     background: url('triple-triad-home-page.png') no-repeat center center fixed;
     background-size: cover;
-    margin-right: 0;
-    margin-left: 0;
 }
 
 .main-container { 
     height: 100vh;
+    overflow-y: hidden;
+    position: absolute;
 }
 
 .first-row { 

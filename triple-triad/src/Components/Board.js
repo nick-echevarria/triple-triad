@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PlayerHandContainer from './PlayerHandContainer';
 import OpponentHandContainer from './OpponentHandContainer';
 import PositionContainer from './PositionContainer'
+
 import './Board.css';
 
 const allCards = "http://localhost:3000/cards"
@@ -329,7 +330,41 @@ class Board extends Component {
         //     alert("It's A Draw!")
         // }
         return (
-            <div>                
+            <div class="container board-container">
+                <div class="row first-board-row">
+                        <div class="col-md-4 first-board-column">
+                        </div>
+                        <div class="col-md-4 second-board-column">
+                        </div>
+                        <div class="col-md-4 third-board-column">
+                        </div>
+                </div>
+                <div class="row second-board-row">
+                        <div class="col-md-4 fourth-board-column">
+                        </div>
+                        <div class="col-md-4 fifth-board-column"> 
+                        </div>
+                        <div class="col-md-4 sixth-board-column">
+                        </div>
+                </div>
+                <div class="row third-board-row">
+                        <div class="col-md-4 seventh-board-column">                
+                        </div>
+                        <div class="col-md-4 eighth-board-column">                
+                        </div>
+                        <div class="col-md-4 ninth-board-column">
+                        </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Board;
+
+
+
+{/* <div>                
                 <div className="gridContainer" style={{border: "2px solid black", margin: "auto"}}>
                     <div className="playerHand" >
                         <PlayerHandContainer playerHand={this.state.playerHand} selectCard={this.selectCard} />
@@ -343,9 +378,4 @@ class Board extends Component {
                     </div>
                     <img className="opponentScore" src={`img/score-${this.state.opponentScore}.png`} alt="player-score"/>
                 </div>                
-            </div>
-        );
-    }
-}
-
-export default Board;
+            </div> */}
